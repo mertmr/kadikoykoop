@@ -1,0 +1,67 @@
+---
+import BaseHead from "../components/BaseHead.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+---
+
+<html lang="tr">
+	<BaseHead title="Kaynaklar" description="Kadıköy Kooperatifi kaynakları" />
+	<body>
+		<Header />
+		<main>
+			<article class="astro-article">
+				<h1>🔗 Kaynaklar</h1>
+				
+				<p>Bu sayfa henüz hazırlanmaktadır. Yakında kooperatif kaynakları burada yayınlanacaktır.</p>
+				
+				<h2>📚 Gelecek İçerikler</h2>
+				
+				<ul>
+					<li>Eğitim materyalleri</li>
+					<li>Video kaynakları</li>
+					<li>Raporlar ve analizler</li>
+					<li>Görsel kaynaklar</li>
+					<li>Harici linkler</li>
+					<li>Sosyal medya arşivi</li>
+				</ul>
+				
+				<hr>
+				
+				<p><em>Bu sayfa yakında güncellenecektir.</em></p>
+			</article>
+		</main>
+		<Footer />
+	</body>
+</html>
+
+<style>
+	.astro-article {
+		max-width: 65ch;
+		margin: 0 auto;
+		padding: 2rem 1rem;
+	}
+	
+	h1 {
+		color: var(--accent);
+		margin-bottom: 1rem;
+	}
+	
+	h2 {
+		color: var(--accent);
+		margin: 2rem 0 1rem 0;
+	}
+	
+	ul {
+		margin-left: 1.5rem;
+	}
+	
+	li {
+		margin: 0.5rem 0;
+	}
+	
+	hr {
+		margin: 2rem 0;
+		border: none;
+		border-top: 1px solid var(--gray-light);
+	}
+</style> 

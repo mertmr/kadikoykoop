@@ -1,93 +1,86 @@
-This is a [Tina CMS](https://tina.io/) starter project.
+# 🌱 Kadıköy Kooperatifi Web Sitesi
 
-# Astro + TinaCMS Starter Kit: Blog
+Bu proje, Kadıköy Kooperatifi'nin resmi web sitesidir. Astro ve TinaCMS kullanılarak geliştirilmiştir.
 
-```sh
-npx create-tina-app@latest --template tina-astro-starter
+## 🎯 Proje Hakkında
+
+Kadıköy Kooperatifi, sürdürülebilir tarım ve adil ticaret ilkeleri doğrultusunda çalışan, topluluk odaklı bir kooperatiftir. Bu web sitesi, kooperatifimizin ürünlerini tanıtmak, üyelerimizle iletişim kurmak ve topluluk bilgilerini paylaşmak amacıyla tasarlanmıştır.
+
+## 🚀 Teknolojiler
+
+- **Astro**: Modern web framework
+- **TinaCMS**: Headless CMS
+- **React**: UI bileşenleri için
+- **TypeScript**: Tip güvenliği
+
+## 📦 Kurulum
+
+Projeyi yerel ortamınızda çalıştırmak için:
+
+```bash
+# Bağımlılıkları yükleyin
+bun install
+
+# Geliştirme sunucusunu başlatın
+bun run dev
 ```
 
-And start editing with TinaCMS at `/admin`! 
+## 🛠️ Geliştirme Komutları
 
+```bash
+# Geliştirme sunucusu (TinaCMS ile)
+bun run dev
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+# Production build
+bun run build
 
-![blog](https://github.com/withastro/astro/assets/2244813/ff10799f-a816-4703-b967-c78997e8323d)
-
-Features:
-
-- ✅ Markdown & MDX support + TinaCMS Markdown Component
-- ✅ TinaCMS Collections (Pages, Blogs, Config)
-- ✅ Visual Editing using Custom Loaders and Client Directives (requires React)
-- ✅ 100/100 Lighthouse performance
-- ✅ View transitions are enabled 
-- ✅ Minimal styling (make it your own!)
-- ✅ SEO-friendly with canonical URLs and OpenGraph data
-- ✅ Sitemap support
-- ✅ RSS Feed support
-
-
-## 🚀 Project Structure
-
-Inside of your project, you'll see the following folders and files:
-
-```text
-├── README.md
-├── astro-tina-directive/
-├── astro.config.mjs
-├── package.json
-├── pnpm-lock.yaml
-├── public/
-├── src
-│   ├── components
-│   ├── content
-│   ├── content.config.ts
-│   ├── layouts
-│   ├── pages
-│   └── styles
-├── tina
-│   ├── collections
-│   ├── components
-│   ├── config.ts
-│   ├── pages
-│   └── tina-lock.json
-└── tsconfig.json
+# Preview
+bun run preview
 ```
 
-Each page is exposed as a route based on its file name which are generated from the content under `src/content/` (excluding the `config` folder). 
+## 📁 Proje Yapısı
 
-To enable Visual Editing with TinaCMS we have had to use React components and a new `client:tina` Directive. Which is the code located under `astro-tina-directive`. 
+```
+src/
+├── components/     # UI bileşenleri
+├── content/        # İçerik dosyaları
+├── layouts/        # Sayfa düzenleri
+├── pages/          # Sayfa dosyaları
+└── styles/         # CSS stilleri
 
-Under the `tina/` folder we have, `collections/` which holds our TinaCMS schema definitions. Under `components/` we have a custom Icon Component that is used within the TinaCMS UI. Under `pages/` we have the "wrappers" that make the Visual Editing work, using the `useTina` hook. 
+tina/
+├── collections/    # TinaCMS koleksiyonları
+├── components/     # TinaCMS bileşenleri
+└── pages/          # Admin sayfaları
+```
 
-The `pages/index.astro` is the "Home" page - This is a special case and has been setup to look for the `content/page/home.mdx` file. 
+## 🌿 Özellikler
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+- **Responsive Tasarım**: Mobil uyumlu
+- **SEO Optimizasyonu**: Arama motoru dostu
+- **Hızlı Yükleme**: Astro'nun performans avantajları
+- **Kolay İçerik Yönetimi**: TinaCMS ile
+- **Türkçe Destek**: Tam Türkçe içerik
 
-The `src/content/` directory contains "collections" of related Markdown and MDX documents. Use `getCollection()` to retrieve posts from `src/content/blog/`, and type-check your frontmatter using an optional schema. See [Astro's Content Collections docs](https://docs.astro.build/en/guides/content-collections/) to learn more.
+## 📞 İletişim
 
-> [!NOTE]
-> To use `getCollection()` we need to add a schema in `content.config.ts` with a custom loader that uses the correct TinaCMS Collection.
+- **E-posta**: info@kadikoykoop.org
+- **Adres**: Kadıköy, İstanbul
+- **Telefon**: +90 (212) XXX XX XX
 
+## 🤝 Katkıda Bulunma
 
-Any static assets, like images, can be placed in the `public/` directory.
+Bu proje açık kaynak kodludur. Katkıda bulunmak isterseniz:
 
-## 🧞 Commands
+1. Projeyi fork edin
+2. Feature branch oluşturun
+3. Değişikliklerinizi commit edin
+4. Pull request gönderin
 
-All commands are run from the root of the project, from a terminal:
+## 📄 Lisans
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+Bu proje MIT lisansı altında lisanslanmıştır.
 
-## 👀 Want to learn more?
+---
 
-Check out the [TinaCMS documentation](https://tina.io/docs) and the [Astro documentation](https://docs.astro.build) or jump into our [TinaCMS Discord server](https://discord.gg/cG2UNREu).
-
-## Credit
-
-This theme is based off of the lovely [Bear Blog](https://github.com/HermanMartinus/bearblog/).
+**Kadıköy Kooperatifi** - Sürdürülebilir Tarım ve Adil Ticaret

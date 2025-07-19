@@ -1,37 +1,45 @@
 {
   "seo": {
-    "title": "Astro Blog + Tina",
-    "description": "Welcome to my website!",
-    "siteOwner": "Your name here"
+    "title": "Kadıköy Kooperatifi Arşivi",
+    "description": "Kadıköy Kooperatifi'nin dokümanları, formları ve kaynakları",
+    "siteOwner": "Kadıköy Kooperatifi Arşivi"
   },
   "nav": [
     {
-      "title": "Home",
+      "title": "Ana Sayfa",
       "link": "/"
     },
     {
-      "title": "Blog",
+      "title": "Hakkında",
+      "link": "/about"
+    },
+    {
+      "title": "Dokümanlar",
       "link": "/blog"
     },
     {
-      "title": "About",
-      "link": "/about"
+      "title": "Formlar",
+      "link": "/forms"
+    },
+    {
+      "title": "Kaynaklar",
+      "link": "/resources"
     }
   ],
   "contactLinks": [
     {
-      "title": "Twitter",
-      "link": "https://x.com/tinacms",
-      "icon": "TbBrandTwitter"
+      "title": "Google Drive",
+      "link": "https://drive.google.com/drive/folders/your-folder-id",
+      "icon": "TbBrandGoogle"
     },
     {
-      "title": "Docs",
-      "link": "https://tina.io/docs",
-      "icon": "TbBook2"
+      "title": "E-posta",
+      "link": "mailto:arsiv@kadikoykoop.org",
+      "icon": "TbMail"
     },
     {
       "title": "GitHub",
-      "link": "https://github.com/tinacms/tinacms",
+      "link": "https://github.com/kadikoykoop-arsiv",
       "icon": "TbBrandGithub"
     }
   ]

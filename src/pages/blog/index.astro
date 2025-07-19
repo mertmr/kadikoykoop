@@ -17,134 +17,160 @@ const posts = (await getCollection('blog')).sort(
 	<head>
 		<BaseHead title="Dokümanlar - Kadıköy Kooperatifi Arşivi" description="Kadıköy Kooperatifi'nin tüzük, yönetmelik ve toplantı tutanakları" />
 		<style>
-			main {
-				max-width: 1200px;
-				margin: 0 auto;
-				padding: 2rem 1rem;
+			/* Override global main styles for blog page */
+			main.blog-main {
+				max-width: 1200px !important;
+				margin: 0 auto !important;
+				padding: 2rem 1rem !important;
+				width: 100% !important;
+				box-sizing: border-box;
 			}
 			
 			.page-header {
 				text-align: center;
 				margin-bottom: 3rem;
-				padding: 2rem 0;
-				background: linear-gradient(135deg, #1a4d2e 0%, #4ade80 100%);
-				color: white;
-				border-radius: 12px;
+				padding-bottom: 1.5rem;
 			}
 			
 			.page-header h1 {
 				font-size: 2.5rem;
 				margin: 0 0 1rem 0;
+				color: rgb(var(--black));
+				font-weight: 700;
+				background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+				-webkit-background-clip: text;
+				-webkit-text-fill-color: transparent;
+				background-clip: text;
 			}
 			
 			.page-header p {
-				font-size: 1.2rem;
+				font-size: 1.1rem;
 				margin: 0;
-				opacity: 0.9;
+				color: rgb(var(--gray));
+				max-width: 600px;
+				margin: 0 auto;
+				line-height: 1.6;
 			}
 			
-			.categories {
-				display: flex;
-				justify-content: center;
-				gap: 1rem;
+			.posts-count {
+				text-align: center;
 				margin-bottom: 2rem;
-				flex-wrap: wrap;
+				color: rgb(var(--gray));
+				font-size: 1rem;
 			}
 			
-			.category-btn {
-				padding: 0.5rem 1rem;
-				background: var(--accent);
-				color: white;
-				border: none;
-				border-radius: 25px;
-				cursor: pointer;
-				transition: 0.3s ease;
-				font-size: 0.9rem;
-			}
-			
-			.category-btn:hover {
-				background: #1a4d2e;
-				transform: translateY(-2px);
-			}
-			
-			.category-btn.active {
-				background: #1a4d2e;
-			}
-			
-			ul {
+			.posts-grid {
 				display: grid;
-				grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-				gap: 2rem;
-				list-style-type: none;
+				grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+				gap: 1.5rem;
 				margin: 0;
 				padding: 0;
+				list-style: none;
+				width: 100%;
 			}
 			
-			ul li {
-				background: white;
+			.post-card {
+				background: rgba(var(--gray-light), 0.1);
 				border-radius: 12px;
+				padding: 1.5rem;
+				transition: all 0.3s ease;
+				border: 1px solid rgba(var(--gray-light), 0.3);
+				position: relative;
 				overflow: hidden;
-				box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-				transition: 0.3s ease;
+				height: fit-content;
 			}
 			
-			ul li:hover {
-				transform: translateY(-5px);
-				box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+			.post-card::before {
+				content: '';
+				position: absolute;
+				top: 0;
+				left: 0;
+				right: 0;
+				height: 3px;
+				background: linear-gradient(90deg, var(--accent), var(--accent-dark));
+				transform: scaleX(0);
+				transition: transform 0.3s ease;
 			}
 			
-			ul li a {
-				display: block;
+			.post-card:hover {
+				transform: translateY(-4px);
+				box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+				border-color: rgba(47, 55, 255, 0.3);
+			}
+			
+			.post-card:hover::before {
+				transform: scaleX(1);
+			}
+			
+			.post-card a {
 				text-decoration: none;
 				color: inherit;
+				display: block;
+				height: 100%;
 			}
 			
-			ul li img {
-				width: 100%;
-				height: 200px;
-				object-fit: cover;
-				margin: 0;
-			}
-			
-			.document-info {
-				padding: 1.5rem;
-			}
-			
-			.title {
-				margin: 0 0 0.5rem 0;
-				color: var(--accent);
+			.post-title {
+				margin: 0 0 1rem 0;
+				color: rgb(var(--black));
 				font-size: 1.3rem;
 				line-height: 1.3;
+				font-weight: 600;
+				transition: color 0.3s ease;
 			}
 			
-			.description {
-				margin: 0 0 1rem 0;
-				color: #666;
+			.post-card:hover .post-title {
+				color: var(--accent);
+			}
+			
+			.post-description {
+				margin: 0 0 1.5rem 0;
+				color: rgb(var(--gray-dark));
 				font-size: 0.95rem;
 				line-height: 1.5;
+				display: -webkit-box;
+				-webkit-line-clamp: 3;
+				-webkit-box-orient: vertical;
+				overflow: hidden;
 			}
 			
-			.date {
+			.post-meta {
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+				margin-top: auto;
+				padding-top: 1rem;
+				border-top: 1px solid rgba(var(--gray-light), 0.5);
+			}
+			
+			.post-date {
 				margin: 0;
-				color: #888;
+				color: rgb(var(--gray));
 				font-size: 0.85rem;
 				font-weight: 500;
 			}
 			
-			.document-type {
-				display: inline-block;
-				padding: 0.25rem 0.75rem;
-				background: #e8f5e8;
-				color: #1a4d2e;
-				border-radius: 15px;
-				font-size: 0.8rem;
+			.read-more {
+				color: var(--accent);
+				font-size: 0.85rem;
 				font-weight: 600;
-				margin-bottom: 0.5rem;
+				opacity: 0;
+				transform: translateX(-10px);
+				transition: all 0.3s ease;
 			}
 			
-			@media (max-width: 720px) {
-				main {
-					padding: 1rem;
+			.post-card:hover .read-more {
+				opacity: 1;
+				transform: translateX(0);
+			}
+			
+			@media (max-width: 768px) {
+				main.blog-main {
+					padding: 1.5rem 0.75rem !important;
+				}
+				
+				.page-header {
+					margin-bottom: 2rem;
+					padding-bottom: 1rem;
 				}
 				
 				.page-header h1 {
@@ -155,57 +181,74 @@ const posts = (await getCollection('blog')).sort(
 					font-size: 1rem;
 				}
 				
-				ul {
+				.posts-grid {
 					grid-template-columns: 1fr;
-					gap: 1rem;
+					gap: 1.25rem;
 				}
 				
-				.categories {
+				.post-card {
+					padding: 1.25rem;
+				}
+				
+				.post-title {
+					font-size: 1.2rem;
+				}
+				
+				.post-description {
+					font-size: 0.9rem;
+				}
+			}
+			
+			@media (max-width: 480px) {
+				main.blog-main {
+					padding: 1rem 0.5rem !important;
+				}
+				
+				.page-header h1 {
+					font-size: 1.8rem;
+				}
+				
+				.post-card {
+					padding: 1rem;
+				}
+				
+				.post-meta {
+					flex-direction: column;
+					align-items: flex-start;
 					gap: 0.5rem;
 				}
 				
-				.category-btn {
-					padding: 0.4rem 0.8rem;
-					font-size: 0.8rem;
+				.read-more {
+					align-self: flex-end;
 				}
 			}
 		</style>
 	</head>
 	<body>
 		<Header />
-		<main>
+		<main class="blog-main">
 			<div class="page-header">
-				<h1>📚 Dokümanlar</h1>
+				<h1>Dokümanlar</h1>
 				<p>Kadıköy Kooperatifi'nin tüzük, yönetmelik ve toplantı tutanakları</p>
 			</div>
 			
-			<div class="categories">
-				<button class="category-btn active" data-category="all">Tümü</button>
-				<button class="category-btn" data-category="tuzuk">Tüzük & Yönetmelik</button>
-				<button class="category-btn" data-category="toplanti">Toplantı Tutanakları</button>
-				<button class="category-btn" data-category="egitim">Eğitim Materyalleri</button>
+			<div class="posts-count">
+				{posts.length} doküman bulundu
 			</div>
 			
 			<section>
-				<ul>
+				<ul class="posts-grid">
 					{
 						posts.map((post) => (
-							<li data-category={post.data.title.includes('Tüzük') || post.data.title.includes('Yönetmelik') ? 'tuzuk' : 
-												 post.data.title.includes('Toplantı') || post.data.title.includes('Tutanak') ? 'toplanti' : 
-												 post.data.title.includes('Eğitim') ? 'egitim' : 'other'}>
+							<li class="post-card">
 								<a href={`/blog/${post.id}/`}>
-									<img width={720} height={360} src={post.data.heroImage} alt="" />
-									<div class="document-info">
-										<span class="document-type">
-											{post.data.title.includes('Tüzük') || post.data.title.includes('Yönetmelik') ? '📋 Yönetim' :
-											 post.data.title.includes('Toplantı') || post.data.title.includes('Tutanak') ? '📊 Toplantı' :
-											 post.data.title.includes('Eğitim') ? '📚 Eğitim' : '📄 Doküman'}
-										</span>
-										<h4 class="title">{post.data.title}</h4>
-										<p class="description">{post.data.description}</p>
-										<p class="date">
+									<h3 class="post-title">{post.data.title}</h3>
+									<p class="post-description">{post.data.description}</p>
+									<div class="post-meta">
+										<p class="post-date">
 											<FormattedDate date={post.data.pubDate} />
 										</p>
+										<span class="read-more">Devamını oku →</span>
 									</div>
 								</a>
 							</li>
@@ -215,30 +258,5 @@ const posts = (await getCollection('blog')).sort(
 			</section>
 		</main>
 		<Footer />
-		
-		<script>
-			// Kategori filtreleme
-			const categoryBtns = document.querySelectorAll('.category-btn');
-			const documentItems = document.querySelectorAll('ul li');
-			
-			categoryBtns.forEach(btn => {
-				btn.addEventListener('click', () => {
-					const category = btn.dataset.category;
-					
-					// Aktif buton güncelleme
-					categoryBtns.forEach(b => b.classList.remove('active'));
-					btn.classList.add('active');
-					
-					// Dokümanları filtreleme
-					documentItems.forEach(item => {
-						if (category === 'all' || item.dataset.category === category) {
-							item.style.display = 'block';
-						} else {
-							item.style.display = 'none';
-						}
-					});
-				});
-			});
-		</script>
 	</body>
 </html>

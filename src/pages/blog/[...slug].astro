@@ -3,6 +3,7 @@ import { type CollectionEntry, getCollection } from "astro:content";
 import BlogPost from "../../layouts/BlogPost.astro"
 import client from "../../../tina/__generated__/client";
 import AdminBlogPost from "../../../tina/pages/AdminBlogPost";
+import FormattedDate from "../../components/FormattedDate.astro";
 
 export async function getStaticPaths() {
 	const posts = await getCollection("blog");
@@ -24,5 +25,6 @@ const tinaProps = await getTinaProps();
 ---
 
 <BlogPost {...tinaProps}>
-		<AdminBlogPost {...tinaProps} client:tina/>
+	<FormattedDate date={post.data.pubDate} slot="date" />
+	<AdminBlogPost {...tinaProps} client:tina/>
 </BlogPost>

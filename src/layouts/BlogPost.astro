@@ -13,50 +13,311 @@ const { title, description } = Astro.props;
 	<head>
 		<BaseHead title={title} description={description} />
 		<style>
-			main {
-				width: calc(100% - 2em);
-				max-width: 100%;
-				margin: 0;
+			/* Override global main styles for blog post page */
+			main.blog-post-main {
+				width: 95% !important;
+				max-width: 1100px !important;
+				margin: 0 auto !important;
+				padding: 1rem !important;
+				position: relative;
 			}
-			.hero-image {
+			
+			.blog-container {
+				background: rgba(var(--gray-light), 0.05);
+				border-radius: 16px;
+				overflow: hidden;
+				box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+				border: 1px solid rgba(var(--gray-light), 0.2);
+				margin: 1rem 0;
 				width: 100%;
 			}
-			.hero-image img {
-				display: block;
-				margin: 0 auto;
-				border-radius: 12px;
-				box-shadow: var(--box-shadow);
+			
+			.blog-header {
+				background: linear-gradient(135deg, rgba(47, 55, 255, 0.08), rgba(0, 13, 138, 0.03));
+				padding: 2rem 2rem 1.5rem 2rem;
+				border-bottom: 1px solid rgba(var(--gray-light), 0.3);
+				position: relative;
+				width: 100%;
+				box-sizing: border-box;
 			}
-			.prose {
-				width: 720px;
-				max-width: calc(100% - 2em);
-				margin: auto;
-				padding: 1em;
-				color: rgb(var(--gray-dark));
+			
+			.blog-header::before {
+				content: '';
+				position: absolute;
+				top: 0;
+				left: 0;
+				right: 0;
+				height: 3px;
+				background: linear-gradient(90deg, var(--accent), var(--accent-dark));
 			}
-			.title {
-				margin-bottom: 1em;
-				padding: 1em 0;
-				text-align: center;
-				line-height: 1;
-			}
+			
 			.title h1 {
-				margin: 0 0 0.5em 0;
+				margin: 0 0 1rem 0;
+				color: rgb(var(--black));
+				font-size: 2.4rem;
+				line-height: 1.2;
+				font-weight: 700;
+				max-width: 100%;
 			}
+			
+			.blog-meta {
+				display: flex;
+				align-items: center;
+				gap: 1rem;
+				margin-top: 1rem;
+				padding-top: 1rem;
+				border-top: 1px solid rgba(var(--gray-light), 0.5);
+				width: 100%;
+			}
+			
 			.date {
-				margin-bottom: 0.5em;
+				margin: 0;
 				color: rgb(var(--gray));
+				font-size: 0.95rem;
+				font-weight: 500;
+				padding: 0.4rem 0.8rem;
+				background: rgba(var(--gray-light), 0.3);
+				border-radius: 15px;
 			}
-			.last-updated-on {
+			
+			.back-link {
+				color: var(--accent);
+				text-decoration: none;
+				font-weight: 600;
+				font-size: 0.9rem;
+				padding: 0.4rem 0.8rem;
+				border: 1px solid var(--accent);
+				border-radius: 15px;
+				transition: all 0.3s ease;
+				margin-left: auto;
+			}
+			
+			.back-link:hover {
+				background: var(--accent);
+				color: white;
+				transform: translateY(-1px);
+			}
+			
+			.prose {
+				width: 100%;
+				max-width: 100%;
+				margin: 0;
+				padding: 2rem 2rem;
+				color: rgb(var(--gray-dark));
+				line-height: 1.7;
+				font-size: 1.05rem;
+				box-sizing: border-box;
+			}
+			
+			.prose :global(h1),
+			.prose :global(h2),
+			.prose :global(h3),
+			.prose :global(h4),
+			.prose :global(h5),
+			.prose :global(h6) {
+				color: rgb(var(--black));
+				font-weight: 600;
+				margin-top: 1.5rem;
+				margin-bottom: 0.8rem;
+				line-height: 1.3;
+			}
+			
+			.prose :global(h2) {
+				font-size: 1.6rem;
+				border-bottom: 2px solid rgba(47, 55, 255, 0.2);
+				padding-bottom: 0.4rem;
+			}
+			
+			.prose :global(h3) {
+				font-size: 1.3rem;
+				color: var(--accent);
+			}
+			
+			.prose :global(p) {
+				margin-bottom: 1.2rem;
+				text-align: justify;
+				max-width: 100%;
+			}
+			
+			.prose :global(a) {
+				color: var(--accent);
+				text-decoration: none;
+				border-bottom: 1px solid rgba(47, 55, 255, 0.3);
+				transition: all 0.3s ease;
+			}
+			
+			.prose :global(a:hover) {
+				border-bottom-color: var(--accent);
+				background: rgba(47, 55, 255, 0.1);
+				padding: 0 0.2rem;
+				border-radius: 3px;
+			}
+			
+			.prose :global(ul),
+			.prose :global(ol) {
+				margin: 1.2rem 0;
+				padding-left: 1.8rem;
+				max-width: 100%;
+			}
+			
+			.prose :global(li) {
+				margin-bottom: 0.4rem;
+			}
+			
+			.prose :global(blockquote) {
+				margin: 1.5rem 0;
+				padding: 1.2rem;
+				background: rgba(47, 55, 255, 0.05);
+				border-left: 4px solid var(--accent);
+				border-radius: 0 6px 6px 0;
 				font-style: italic;
+				max-width: 100%;
+				box-sizing: border-box;
+			}
+			
+			.prose :global(code) {
+				background: rgba(var(--gray-light), 0.5);
+				padding: 0.2rem 0.4rem;
+				border-radius: 3px;
+				font-family: 'Monaco', 'Menlo', monospace;
+				font-size: 0.9rem;
+			}
+			
+			.prose :global(pre) {
+				background: rgb(var(--black));
+				color: white;
+				padding: 1.2rem;
+				border-radius: 6px;
+				overflow-x: auto;
+				margin: 1.5rem 0;
+				max-width: 100%;
+				box-sizing: border-box;
+			}
+			
+			.prose :global(pre code) {
+				background: transparent;
+				padding: 0;
+				color: inherit;
+			}
+			
+			.prose :global(img) {
+				max-width: 100%;
+				height: auto;
+				border-radius: 8px;
+				margin: 1rem 0;
+			}
+			
+			.prose :global(table) {
+				width: 100%;
+				max-width: 100%;
+				border-collapse: collapse;
+				margin: 1.5rem 0;
+				overflow-x: auto;
+				display: block;
+				white-space: nowrap;
+			}
+			
+			@media (max-width: 1200px) {
+				main.blog-post-main {
+					width: 92% !important;
+					max-width: 1000px !important;
+				}
+			}
+			
+			@media (max-width: 768px) {
+				main.blog-post-main {
+					width: calc(100% - 1em) !important;
+					padding: 0.5rem !important;
+				}
+				
+				.blog-container {
+					margin: 0.5rem 0;
+					border-radius: 12px;
+				}
+				
+				.blog-header {
+					padding: 1.5rem 1rem 1rem 1rem;
+				}
+				
+				.title h1 {
+					font-size: 1.8rem;
+				}
+				
+				.blog-meta {
+					flex-direction: column;
+					align-items: flex-start;
+					gap: 0.8rem;
+				}
+				
+				.back-link {
+					margin-left: 0;
+					align-self: flex-end;
+				}
+				
+				.prose {
+					padding: 1.5rem 1rem;
+					font-size: 1rem;
+				}
+				
+				.prose :global(h2) {
+					font-size: 1.4rem;
+				}
+				
+				.prose :global(h3) {
+					font-size: 1.1rem;
+				}
+			}
+			
+			@media (max-width: 480px) {
+				main.blog-post-main {
+					padding: 0.25rem !important;
+				}
+				
+				.blog-header {
+					padding: 1.2rem 0.8rem 0.8rem 0.8rem;
+				}
+				
+				.title h1 {
+					font-size: 1.6rem;
+				}
+				
+				.prose {
+					padding: 1.2rem 0.8rem;
+					font-size: 0.95rem;
+				}
+				
+				.date {
+					font-size: 0.85rem;
+					padding: 0.3rem 0.6rem;
+				}
+				
+				.back-link {
+					font-size: 0.85rem;
+					padding: 0.3rem 0.6rem;
+				}
 			}
 		</style>
 	</head>
 
 	<body>
 		<Header />
-		<main>
-			<slot />
+		<main class="blog-post-main">
+			<article class="blog-container">
+				<header class="blog-header">
+					<div class="title">
+						<h1>{title}</h1>
+					</div>
+					<div class="blog-meta">
+						<div class="date">
+							<slot name="date" />
+						</div>
+						<a href="/blog" class="back-link">← Tüm Dokümanlar</a>
+					</div>
+				</header>
+				<div class="prose">
+					<slot />
+				</div>
+			</article>
 		</main>
 		<Footer />
 	</body>

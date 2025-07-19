@@ -23,23 +23,19 @@ export default function AdminBlogPost(props: Props) {
 
 	return (
 		<article>
-			<div data-tina-field={tinaField(blog, "heroImage")} className="hero-image">
-				{blog.heroImage && <img width={1020} height={510} src={blog.heroImage} alt="" />}
-			</div>
 			<div className="prose">
 				<div className="title">
+					<h1 data-tina-field={tinaField(blog, "title")} >{blog.title}</h1>
 					<div className="date" data-tina-field={tinaField(blog, "pubDate")} >
 						<FormattedDate date={blog.pubDate} />
 						{
 							blog.updatedDate && (
 								<div className="last-updated-on" data-tina-field={tinaField(blog, "updatedDate")} >
-									Last updated on <FormattedDate date={blog.updatedDate} />
+									Son güncelleme: <FormattedDate date={blog.updatedDate} />
 								</div>
 							)
 						}
 					</div>
-					<h1 data-tina-field={tinaField(blog, "title")} >{blog.title}</h1>
-					<hr />
 				</div>
 				<div data-tina-field={tinaField(blog, "body")}>
 					<TinaMarkdown content={blog.body} />
